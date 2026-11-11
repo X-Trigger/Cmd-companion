@@ -19,10 +19,15 @@ LCU_POSITION = {
     "TOP": "top",
     "JUNGLE": "jungle",
     "MIDDLE": "mid",
+    "MID": "mid",
     "BOTTOM": "adc",
+    "BOT": "adc",
+    "ADC": "adc",
     "UTILITY": "support",
+    "SUPPORT": "support",
 }
 LANE_CHOICES = {"top", "jungle", "mid", "adc", "support"}
+LOBBY_PREFERENCE_REFRESH_SECONDS = 5
 
 
 def load_champion_names():
@@ -40,6 +45,12 @@ def get_session(client):
         return None
 
 
+def normalize_position(position):
+    if not isinstance(position, str):
+        return None
+    return LCU_POSITION.get(position.strip().upper())
+
+
 def find_hovered(session):
     me = session.get("localPlayerCellId")
     champion_id = None
@@ -51,15 +62,30 @@ def find_hovered(session):
                     and not action.get("completed")):
                 champion_id = action.get("championId", 0) or 0
 
-    lane = ""
+    lane = None
     for member in session.get("myTeam", []):
         if member.get("cellId") == me:
-            lane = member.get("assignedPosition", "") or ""
+            lane = normalize_position(member.get("assignedPosition"))
             if champion_id is None:
                 champion_id = member.get("championId", 0) or 0
             break
 
     return champion_id or 0, lane
+
+
+def get_lobby_position(client):
+    try:
+        lobby = client.call("GET", "/lol-lobby/v2/lobby")
+    except RuntimeError as error:
+        if "404" in str(error):
+            return None
+        raise
+
+    if not isinstance(lobby, dict):
+        return None
+    local_member = lobby.get("localMember") or {}
+    return (normalize_position(local_member.get("firstPositionPreference"))
+            or normalize_position(local_member.get("secondPositionPreference")))
 
 
 def check_key():
@@ -107,6 +133,9 @@ def main():
     pending = False
     declined = set()
     custom_lane = None
+    lobby_position = None
+    lobby_position_checked_at = 0.0
+    last_lobby_error = None
 
     while True:
         try:
@@ -140,9 +169,23 @@ def main():
         champion = names[champion_id]
         champ_key = normalize_champion(champion)
 
-        if lane:
-            position = LCU_POSITION.get(lane)
-        else:
+        position = lane
+        if position is None:
+            now = time.monotonic()
+            if now - lobby_position_checked_at >= LOBBY_PREFERENCE_REFRESH_SECONDS:
+                lobby_position_checked_at = now
+                try:
+                    lobby_position = get_lobby_position(client)
+                    last_lobby_error = None
+                except (RuntimeError, requests.RequestException) as e:
+                    error = f"Could not read role preference from the League Client: {e}"
+                    if error != last_lobby_error:
+                        print(error)
+                        last_lobby_error = error
+                    lobby_position = None
+            position = lobby_position
+
+        if position is None:
             if custom_lane is None:
                 custom_lane = ask_lane_once()
             position = custom_lane

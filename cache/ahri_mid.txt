@@ -1,0 +1,9 @@
+class LolGetChampionAnalysis: champion,position,data
+class Data: summary,core_items,boots,starter_items,summoner_spells,runes,skills
+class Summary: average_stats
+class AverageStats: win_rate,pick_rate,ban_rate,kda
+class CoreItems: ids_names,play,win,pick_rate
+class Runes: primary_page_name,primary_rune_names,secondary_page_name,secondary_rune_names,stat_mod_names,play,win,pick_rate
+class Skills: order,play,win,pick_rate
+
+LolGetChampionAnalysis("AHRI","MID",Data(Summary(AverageStats(0.51,0.12,0.04,2.57)),CoreItems(["Malignance","Shadowflame","Zhonya's Hourglass"],11136,5955,0.13),CoreItems(["Sorcerer's Shoes"],77025,39999,0.59),CoreItems(["Doran's Ring","Health Potion","Health Potion"],133368,68549,0.99),CoreItems([4,14],93408,48287,0.69),Runes("Domination",["Electrocute","Taste of Blood","Grisly Mementos","Ultimate Hunter"],"Sorcery",["Transcendence","Manaflow Band"],[5005,5008,5001],68586,34814,0.49),Skills(["W","Q","E","Q","Q","R","Q","W","Q","W","R","W","W","E","E"],56677,32903,0.59)))
