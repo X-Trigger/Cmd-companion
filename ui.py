@@ -125,7 +125,16 @@ def render_build(build):
     print(f"  {paint(spell_text, WHITE)}")
 
     print(header("Runes"))
-    print(rune_block(d.get("runes", {})))
+    runes = d.get("runes")
+    if isinstance(runes, list):
+        options = [r for r in runes if r]
+        for i, rune_setup in enumerate(options, 1):
+            print(rune_block(rune_setup, index=i))
+            print()
+    elif isinstance(runes, dict) and runes:
+        print(rune_block(runes))
+    else:
+        print(f"  {paint('—', GREY)}")
 
     skills = d.get("skills", {})
     order = skills.get("order") or []

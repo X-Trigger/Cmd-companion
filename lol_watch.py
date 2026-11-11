@@ -6,7 +6,7 @@ import requests
 
 from opgg_cli import get_text, normalize_champion, parse_build
 from lol_import import ClientAPI, import_runes, latest_version
-from ui import render_runes
+from ui import render_build
 
 try:
     import msvcrt
@@ -151,6 +151,8 @@ def main():
         if key != last_key:
             last_key = key
             pending = False
+            current_build = None
+            current_options = []
             last_status = None
             print(f"\nHovering {champion} ({position})")
             try:
@@ -162,17 +164,17 @@ def main():
 
             if build is None:
                 pass
-            elif key in declined:
-                print("Skipped earlier for this champion. Hover another or restart to see it again.")
             else:
                 current_build = build
                 current_options = rune_options(build)
+                render_build(build)
                 if not current_options:
                     print("No rune setup in the build data.")
+                elif key in declined:
+                    print("Skipped earlier for this champion. Hover another or restart to see it again.")
                 else:
-                    render_runes(current_options)
                     pending = True
-                    keys = "1" if len(current_options) == 1 else "1 or 2"
+                    keys = "1" if len(current_options) == 1 else f"1–{len(current_options)}"
                     print(f"\nPress {keys} to import that setup, N to skip.")
 
         if pending:

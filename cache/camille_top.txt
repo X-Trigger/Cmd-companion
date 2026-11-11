@@ -1,0 +1,9 @@
+class LolGetChampionAnalysis: champion,position,data
+class Data: summary,core_items,boots,starter_items,summoner_spells,runes,skills
+class Summary: average_stats
+class AverageStats: win_rate,pick_rate,ban_rate,kda
+class CoreItems: ids_names,play,win,pick_rate
+class Runes: primary_page_name,primary_rune_names,secondary_page_name,secondary_rune_names,stat_mod_names,play,win,pick_rate
+class Skills: order,play,win,pick_rate
+
+LolGetChampionAnalysis("CAMILLE","TOP",Data(Summary(AverageStats(0.5,0.06,0.02,1.91)),CoreItems(["Trinity Force","Ravenous Hydra","Death's Dance"],11595,6681,0.44),CoreItems(["Plated Steelcaps"],28330,14657,0.62),CoreItems(["Doran's Blade","Health Potion"],31201,16011,0.59),CoreItems([4,14],32461,16638,0.62),Runes("Resolve",["Grasp of the Undying","Shield Bash","Bone Plating","Unflinching"],"Inspiration",["Magical Footwear","Biscuit Delivery"],[5005,5008,5001],13692,6903,0.25),Skills(["W","Q","E","Q","Q","R","Q","E","Q","E","R","E","E","W","W"],17463,9606,0.44)))

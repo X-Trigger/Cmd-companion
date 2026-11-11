@@ -1,0 +1,10 @@
+class LolGetChampionAnalysis: champion,position,data
+class Data: summary,core_items,boots,starter_items,summoner_spells,runes,skills,counters_meta
+class Summary: average_stats
+class AverageStats: win_rate,pick_rate,ban_rate,kda
+class CoreItems: ids_names,play,win,pick_rate
+class Runes: primary_page_name,primary_rune_names,secondary_page_name,secondary_rune_names,stat_mod_names,play,win,pick_rate
+class Skills: order,play,win,pick_rate
+class CountersMeta: message
+
+LolGetChampionAnalysis("HECARIM","TOP",Data(Summary(AverageStats(0.5,0.05,0.08,2.87)),CoreItems(["Tear of the Goddess","Black Cleaver","Muramana","Endless Hunger"],13,6,0.14),CoreItems(["Ionian Boots of Lucidity"],82,33,0.54),CoreItems(["Doran's Blade","Health Potion"],109,42,0.64),CoreItems([6,14],98,33,0.59),Runes("Precision",["Conqueror","Triumph","Legend: Haste","Last Stand"],"Sorcery",["Celerity","Nimbus Cloak"],[5005,5008,5001],49,19,0.28),Skills(["Q","W","E","Q","Q","R","Q","W","Q","W","R","W","W","E","E"],51,16,0.44),CountersMeta("Insufficient matchup sample. See data.summary.positions[].counters[] for raw matchup data (smaller sample).")))
