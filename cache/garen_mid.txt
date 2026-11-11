@@ -1,9 +1,0 @@
-class LolGetChampionAnalysis: champion,position,data
-class Data: summary,core_items,boots,starter_items,summoner_spells,runes,skills
-class Summary: average_stats
-class AverageStats: win_rate,pick_rate,ban_rate,kda
-class CoreItems: ids_names,play,win,pick_rate
-class Runes: primary_page_name,primary_rune_names,secondary_page_name,secondary_rune_names,stat_mod_names,play,win,pick_rate
-class Skills: order,play,win,pick_rate
-
-LolGetChampionAnalysis("GAREN","MID",Data(Summary(AverageStats(0.51,0.07,0.04,1.83)),CoreItems(["Stridebreaker","Phantom Dancer","Mortal Reminder"],760,399,0.2),CoreItems(["Boots of Swiftness"],2215,1189,0.43),CoreItems(["Doran's Shield","Health Potion"],3499,1776,0.65),CoreItems([4,14],4462,2270,0.84),Runes("Sorcery",["Stormraider's Surge","Axiom Arcanist","Celerity","Gathering Storm"],"Resolve",["Second Wind","Overgrowth"],[5008,5008,5001],1606,830,0.29),Skills(["E","Q","W","E","E","R","E","Q","E","Q","R","Q","Q","W","W"],1796,1023,0.46)))

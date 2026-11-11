@@ -1,9 +1,0 @@
-class LolGetChampionAnalysis: champion,position,data
-class Data: summary,core_items,boots,starter_items,summoner_spells,runes,skills
-class Summary: average_stats
-class AverageStats: win_rate,pick_rate,ban_rate,kda
-class CoreItems: ids_names,play,win,pick_rate
-class Runes: primary_page_name,primary_rune_names,secondary_page_name,secondary_rune_names,stat_mod_names,play,win,pick_rate
-class Skills: order,play,win,pick_rate
-
-LolGetChampionAnalysis("SKARNER","JUNGLE",Data(Summary(AverageStats(0.51,0.01,0,3.03)),CoreItems(["Heartsteel","Unending Despair","Spirit Visage"],1992,1196,0.25),CoreItems(["Plated Steelcaps"],5903,3040,0.53),CoreItems(["Mosstomper Seedling","Health Potion"],3159,1604,0.26),CoreItems([4,11],11839,6067,0.99),Runes("Resolve",["Grasp of the Undying","Shield Bash","Conditioning","Overgrowth"],"Inspiration",["Magical Footwear","Approach Velocity"],[5007,5001,5001],7004,3683,0.56),Skills(["Q","W","E","Q","Q","R","Q","W","Q","W","R","W","W","E","E"],5479,3438,0.78)))
